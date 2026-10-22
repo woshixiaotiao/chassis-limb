@@ -1,0 +1,46 @@
+﻿躯壳 0.1.0-a · 安装说明
+=====================================================================
+【这是什么】
+  躯壳：肢体 —— Minecraft 人体部位化受伤模型（七部位血池 / 伤害传导 / 断肢 /
+  死亡锁 / 治疗与恢复 / HUD 表现层）。
+  躯壳（API）—— 躯壳模组家族的 API 运行库（部位数据模型、事件、服务契约）。
+  本版本 0.1.0-a 为 v5.11 功能集（verify-order 12 条、全量 14 行 RESULT 全 PASS）。
+
+【环境要求】
+  Minecraft   1.21.1（versionRange [1.21.1,1.21.2)）
+  NeoForge    21.1.262 或更高（versionRange [21.1.262,)）
+  Java        21
+  依赖        躯壳:肢体 需要 躯壳(API) 同时安装（required，版本 ≥ 0.1.0-a）
+
+【安装】
+  1) 把下面两个 jar 一起放进实例的 mods\ 目录（不要放进子目录、不要改名）：
+       chassis-api-0.1.0-a.jar     （躯壳 / modId=chassis_api）
+       chassis-limb-0.1.0-a.jar    （躯壳:肢体 / modId=chassis）
+  2) 只装其中一个不会启动（API 缺失会报依赖不满足）。
+  3) 模组列表应显示：「躯壳:肢体 0.1.0-a」「躯壳 0.1.0-a」。
+
+【兼容】
+  Jade 15.10.6+（可选，NeoForge 版）：装了会额外在 Jade tooltip 显示部位信息；
+        没装也能正常启动（内部有动态检测守卫）。
+  TaCZ（可选）：装了才有枪械弹道联动的部位命中；没装也能正常启动
+        （TaCZ 相关 Mixin 由配置插件在目标类缺失时自动跳过）。
+  其它模组：无硬依赖；Epic Fight 等深度改动作的模组属高风险，未做专项适配。
+
+【存档兼容】
+  modId 保持 chassis / chassis_api 不变，仅显示名与版本号变化，旧存档可直接进。
+
+【配置文件】
+  首次启动后在 实例目录\config\ 生成：
+    chassis-server.toml          （服务端/世界规则：血池、阈值、死亡锁、热度预算、掉落等）
+    chassis-client.properties    （客户端偏好：HUD 模板/模式、缩放、识别时长、恢复预设）
+    chassis-client.toml（如存在） （Jade/HUD 兼容开关等客户端配置）
+
+【自检】（可选）
+  进入世界后（需开作弊）可执行：
+    /chassis limb verify-all     —— 部位基础自检 28 条
+    /chassis limb verify-order   —— 结算顺序/死亡锁/外溢 12 条
+    /chassis limb verify-debt    —— 旧档迁移 5 条
+  全部通过时日志出现「RESULT pass=N fail=0 (ALL PASS)」。
+
+【版本与校验】
+  详见同目录 SHA256清单.txt；两个 jar 必须成对使用。
